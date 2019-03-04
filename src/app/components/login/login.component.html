@@ -1,0 +1,27 @@
+<mat-card class="example-card">
+		<mat-card-header>
+		  <mat-card-title>Login</mat-card-title>
+		  <div [hidden]="!SD.loginErr" style="color:red">Bad Credentials!!</div>
+		</mat-card-header>
+		<mat-card-content>
+		  <form [formGroup]="loginForm" class="example-form">
+			<table class="example-full-width" cellspacing="0">
+			  <tr>
+				<td>
+				  <mat-form-field class="example-full-width">
+				  <input matInput placeholder="Username" [(ngModel)]="loginObj.un" name="username" formControlName="username" required>
+				  </mat-form-field>
+				</td>
+			  </tr>
+			  <tr>
+			  <td><mat-form-field class="example-full-width">
+				<input matInput placeholder="Password" [(ngModel)]="loginObj.pass"type="password" name="password" formControlName="password" required>
+			  </mat-form-field></td>
+			</tr></table>
+		  </form>
+		  <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+		</mat-card-content>
+		<mat-card-actions>
+		  <button mat-raised-button (click)="login()" color="accent" [disabled]="!loginForm.valid">Login</button>
+		</mat-card-actions>
+	  </mat-card>

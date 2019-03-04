@@ -1,0 +1,84 @@
+<mat-card>
+  <h3> Please choose a file and upload to create users</h3>
+      <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
+        <mat-card-content>
+          <input formControlName="document" type="file" ng2FileSelect accept=".csv" [uploader]="uploader"/><br/>
+          <br>
+          <div class="drop-zone">
+          <div ng2FileDrop [uploader]="uploader" class="drop-zone">
+             Drag and drop files to upload
+          </div>
+          </div>
+          <table>
+            <thead>
+            <tr>
+              <th width="90%">
+                File Name
+              </th>
+              <th width="10%">
+                Remove
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of uploader.queue">
+              <th width="90%">
+                {{ item.file.name}}({{item.file.size/1000000}} MB)
+              </th>
+              <th class="text-center" width="10%">
+                <mat-icon (click)="item.remove()">delete</mat-icon>
+              </th>
+            </tr>
+            </tbody>
+          </table>
+          <br>
+          <button mat-raised-button color="accent" [disabled]="!uploadForm.valid" type="submit">Upload Data</button>
+          <div style="padding: 10px;" [hidden]="!msg">    <div style="color:green;padding: 10px;">{{msg}}</div>
+          <div class="example-container mat-elevation-z8">
+              <table mat-table [hidden]="!dataSource" [dataSource]="dataSource">
+  
+              <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef>#</th>
+                  <td mat-cell *matCellDef="let lesson">{{lesson.id}}</td>
+              </ng-container>
+            
+              <ng-container matColumnDef="firstName">
+                  <th mat-header-cell *matHeaderCellDef>First Name</th>
+                  <td mat-cell class="description-cell"
+                            *matCellDef="let lesson">{{lesson.firstName}}</td>
+              </ng-container>
+            
+              <ng-container matColumnDef="lastName">
+                  <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                  <td mat-cell class="duration-cell"
+                            *matCellDef="let lesson">{{lesson.lastName}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="phoneNumber">
+                  <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+                  <td mat-cell class="duration-cell"
+                            *matCellDef="let lesson">{{lesson.phoneNumber}}</td>
+              </ng-container>
+              
+              <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef>Email</th>
+                  <td mat-cell class="duration-cell"
+                            *matCellDef="let lesson">{{lesson.email}}</td>
+              </ng-container>
+
+
+              
+              <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+              
+              <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+              
+          </table>
+          </div>
+        </div>
+        <div style="padding: 10px; color: red" [hidden]="!errorMsg" >The Following errors have occured while creating users</div>
+        <li style="padding: 10px; color: red" [hidden]="!errorMsg" *ngFor="let err of errorMsg">    {{err}}     </li>
+        
+
+        </mat-card-content>
+      </form>
+</mat-card>
